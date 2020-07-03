@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Yin.Umbrella.DataBase\Yin.Umbrella.DataBase.csproj" />
+  </ItemGroup>
+
 </Project>

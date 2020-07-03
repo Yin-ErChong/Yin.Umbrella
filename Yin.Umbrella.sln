@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yin.Umbrella.Core", "Yin.Um
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yin.Umbrella.Test", "Yin.Umbrella.Test\Yin.Umbrella.Test.csproj", "{504E7596-BA62-4DF0-A566-A194854EB0BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yin.Umbrella.DataBase", "Yin.Umbrella.DataBase\Yin.Umbrella.DataBase.csproj", "{F1B8A631-F348-4FC8-93AF-732ED02C5FC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{504E7596-BA62-4DF0-A566-A194854EB0BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{504E7596-BA62-4DF0-A566-A194854EB0BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{504E7596-BA62-4DF0-A566-A194854EB0BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1B8A631-F348-4FC8-93AF-732ED02C5FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B8A631-F348-4FC8-93AF-732ED02C5FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B8A631-F348-4FC8-93AF-732ED02C5FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B8A631-F348-4FC8-93AF-732ED02C5FC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
