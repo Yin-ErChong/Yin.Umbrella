@@ -23,6 +23,7 @@ namespace SpiderCore.ServiceImp
             {
                 var li = await _dataAccess.User.ToListAsync();
                 var result = await _dataAccess.User.Where(n=>n.Id==id).FirstOrDefaultAsync();//await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();
+                 _dataAccess.User.Update(result);
                 return result;
             }
             catch (Exception ee)

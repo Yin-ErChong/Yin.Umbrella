@@ -2,36 +2,40 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Yin.Umbrella.DataBase;
 
 namespace SpiderDataBase.Entity
 {
     [Table("user")]
-    public class User
+    public class User: EntityBase
     {
-        [Column("id")]
-        
-        public Guid Id { get; set; }
 
-        [Column("username")]
+        [Column("UserName")]
         public string Name { get; set; }
 
-        [Column("password")]
+        [Column("PassWord")]
         public string PassWord { get; set; }
 
-        [Column("gender")]
+        [Column("Gender")]
         public string Gender { get; set; }
 
-        [Column("email")]
+        [Column("Email")]
         public string Email { get; set; }
 
-        [Column("province")]
+        [Column("Province")]
         public string Province { get; set; }
 
-        [Column("city")]
+        [Column("City")]
         public string City { get; set; }
 
-        [Column("birthday")]
+        [Column("Birthday")]
         public DateTime Birthday { get; set; }
+
+        [Column("Type")]
+        public int Type { get; set; }
+
+        [Column("ClassId")]
+        public Guid ClassId { get; set; }
 
     }
 }
