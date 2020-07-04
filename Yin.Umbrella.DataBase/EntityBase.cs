@@ -16,6 +16,7 @@ namespace Yin.Umbrella.DataBase
         [Column("ModifiedTime")]
         public DateTime ModifiedTime { get; set; }
         #endregion
+
         #region 公共方法
         private static Dictionary<string, Dictionary<string, PropertyInfo>> propertyInfoDic = new Dictionary<string, Dictionary<string, PropertyInfo>>();
         private static object locker = new object();

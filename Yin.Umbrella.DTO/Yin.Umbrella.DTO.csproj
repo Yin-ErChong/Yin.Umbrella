@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewDTO\" />
+    <Folder Include="ApiDTO\" />
+  </ItemGroup>
+
 </Project>
