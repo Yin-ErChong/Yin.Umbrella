@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yin.Umbrella.DTO;
 
 namespace Yin.Umbrella.Web.Controllers
 {
@@ -22,7 +23,7 @@ namespace Yin.Umbrella.Web.Controllers
         }
         [Route(nameof(hehe))]
         [HttpGet]
-        public async Task<User> hehe(Guid guid)
+        public async Task<ReturnT<User>> hehe(Guid guid)
         {
             return await _firstTestService.GetUser(guid);
         }

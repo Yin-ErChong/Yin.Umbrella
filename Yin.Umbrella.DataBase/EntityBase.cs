@@ -9,12 +9,48 @@ namespace Yin.Umbrella.DataBase
     public class EntityBase
     {
         #region 公共字段
-        [Column("Id")]
+        private DateTime _CreateTime;
+        private DateTime _ModifiedTime;
+        [Column("id")]
         public Guid Id { get; set; }
-        [Column("CreateTime")]
-        public DateTime CreateTime { get; set; }
-        [Column("ModifiedTime")]
-        public DateTime ModifiedTime { get; set; }
+        [Column("createtime")]
+        public DateTime CreateTime
+        {
+            get
+            {
+                if (_CreateTime == DateTime.MinValue)
+                {
+                    return DateTime.Now;
+                }
+                else
+                {
+                    return _CreateTime;
+                }
+            }
+            set 
+            { 
+                _CreateTime = value; 
+            }
+        }
+        [Column("modifiedtime")]
+        public DateTime ModifiedTime
+        {
+            get
+            {
+                if (_ModifiedTime == DateTime.MinValue)
+                {
+                    return DateTime.Now;
+                }
+                else
+                {
+                    return _ModifiedTime;
+                }
+            }
+            set
+            {
+                _ModifiedTime = value;
+            }
+        }
         #endregion
 
         #region 公共方法
@@ -34,10 +70,7 @@ namespace Yin.Umbrella.DataBase
                 switch (itemType.Name)
                 {
                     case "String": SetValue(item.Key, string.Empty); break;
-                }
-                if (item.Key == "")
-                {
-
+                    case "Guid": SetValue(item.Key, Guid.NewGuid()); break;
                 }
             }
         }

@@ -10,31 +10,31 @@ namespace SpiderDataBase.Entity
     public class User: EntityBase
     {
 
-        [Column("UserName")]
+        [Column("username")]
         public string Name { get; set; }
 
-        [Column("PassWord")]
+        [Column("password")]
         public string PassWord { get; set; }
 
-        [Column("Gender")]
+        [Column("gender")]
         public string Gender { get; set; }
 
-        [Column("Email")]
+        [Column("email")]
         public string Email { get; set; }
 
-        [Column("Province")]
+        [Column("province")]
         public string Province { get; set; }
 
-        [Column("City")]
+        [Column("city")]
         public string City { get; set; }
 
-        [Column("Birthday")]
+        [Column("birthday")]
         public DateTime Birthday { get; set; }
 
-        [Column("Type")]
+        [Column("type")]
         public int Type { get; set; }
 
-        [Column("ClassId")]
+        [Column("classid")]
         public Guid ClassId { get; set; }
 
     }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yin.Umbrella.DataBase\Yin.Umbrella.DataBase.csproj" />
+    <ProjectReference Include="..\Yin.Umbrella.DTO\Yin.Umbrella.DTO.csproj" />
   </ItemGroup>
 
 </Project>

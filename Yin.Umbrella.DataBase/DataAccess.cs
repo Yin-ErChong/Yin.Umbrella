@@ -15,10 +15,53 @@ namespace Snai.Mysql.DataAccess.Base
             : base(options)
         { }
 
-        public UmbDbSet<User> User { get; set; }
+        public DbSet<User> User { get; set; }
+    }
+    public static class DbSetExtension
+    {
+        public  static EntityEntry<TEntity> UpdateX<TEntity>( this DbSet<TEntity> dbSet, TEntity entity)where TEntity: EntityBase
+        {
+            entity.ModifiedTime = DateTime.Now;
+            return dbSet.Update(entity);
+        }
+        public static void UpdateRangeX<TEntity>(this DbSet<TEntity> dbSet, params TEntity[] entities) where TEntity : EntityBase
+        {
+            foreach (var entity in entities)
+            {
+                entity.ModifiedTime = DateTime.Now;
+            }
+            dbSet.UpdateRange(entities);
+        }
+        public static void AddRangeX<TEntity>(this DbSet<TEntity> dbSet, IEnumerable<TEntity> entities) where TEntity : EntityBase
+        {
+            foreach (var entity in entities)
+            {
+                if (entity.Id == Guid.Empty)
+                {
+                    entity.Id = Guid.NewGuid();
+                }
+                entity.CreateTime = DateTime.Now;
+                entity.ModifiedTime= DateTime.Now;
+            }
+            dbSet.AddRange(entities);
+        }
+        public static EntityEntry<TEntity> AddX<TEntity>(this DbSet<TEntity> dbSet, TEntity entity) where TEntity : EntityBase
+        {
+            if (entity.Id == Guid.Empty)
+            {
+                entity.Id = Guid.NewGuid();
+            }
+            entity.CreateTime = DateTime.Now;
+            entity.ModifiedTime = DateTime.Now;
+            return dbSet.Add(entity);
+        }
     }
     public class UmbDbSet<TEntity> : DbSet<TEntity> where TEntity : EntityBase
     {
+        public UmbDbSet():base()
+        {
+
+        }
         public override EntityEntry<TEntity> Update(TEntity entity)
         {
             entity.ModifiedTime = DateTime.Now;

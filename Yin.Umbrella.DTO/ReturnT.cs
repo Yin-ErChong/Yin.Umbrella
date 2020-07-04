@@ -16,6 +16,9 @@ namespace Yin.Umbrella.DTO
         /// 是否成功
         /// </summary>
         public bool IsSuccess { get; set; }
+
+        public static ReturnBase Instance { get { return new ReturnBase();} }
+
     }
     public class ReturnT<T> : ReturnBase
     {
@@ -23,6 +26,8 @@ namespace Yin.Umbrella.DTO
         /// 数据载体
         /// </summary>
         public T Data { get; set; }
+
+        public static new ReturnT<T> Instance { get { return new ReturnT<T>(); }}
 
     }
     public static class ReturnExtension
@@ -41,7 +46,21 @@ namespace Yin.Umbrella.DTO
             returnBase.Message = errorEnum.ToString();
             return returnBase;
         }
-        public static ReturnBase Success<T>(this ReturnT<T> returnT,T data)
+        public static ReturnBase Error(this ReturnBase returnBase)
+        {
+            returnBase.Code = (int)ErrorEnum.未知错误;
+            returnBase.IsSuccess = false;
+            returnBase.Message = ErrorEnum.未知错误.ToString();
+            return returnBase;
+        }
+        public static ReturnT<T> Error<T>(this ReturnT<T> returnT)
+        {
+            returnT.Code = (int)ErrorEnum.未知错误;
+            returnT.IsSuccess = false;
+            returnT.Message = ErrorEnum.未知错误.ToString();
+            return returnT;
+        }
+        public static ReturnT<T> Success<T>(this ReturnT<T> returnT,T data)
         {
             returnT.Success();
             returnT.Data = data;

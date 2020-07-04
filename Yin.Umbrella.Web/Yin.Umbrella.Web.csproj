@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Yin.Umbrella.Core\Yin.Umbrella.Core.csproj" />
     <ProjectReference Include="..\Yin.Umbrella.DataBase\Yin.Umbrella.DataBase.csproj" />
+    <ProjectReference Include="..\Yin.Umbrella.DTO\Yin.Umbrella.DTO.csproj" />
     <ProjectReference Include="..\Yin.Umbrella.Util\Yin.Umbrella.Util.csproj" />
   </ItemGroup>
 
