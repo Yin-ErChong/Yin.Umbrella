@@ -37,21 +37,29 @@ namespace Snai.Mysql.DataAccess.Base
         /// </summary>
         private void SetSystemField()
         {
-            //添加操作
-            ChangeTracker.Entries().Where(e => e.State == EntityState.Added && e.Entity is EntityBase).ToList()
-                .ForEach(e => {
-                    var entity = (EntityBase)e.Entity;
-                    if (entity.Id==Guid.Empty)
-                    {
-                        entity.Id = Guid.NewGuid();
+            foreach (var item in ChangeTracker.Entries())
+            {
+                if (item.Entity is EntityBase)
+                {
+                    var entity = (EntityBase)item.Entity;
+                    //添加操作
+                    if (item.State == EntityState.Added)
+                    {                       
+                        if (entity.Id == Guid.Empty)
+                        {
+                            entity.Id = Guid.NewGuid();
+                        }
+                        entity.CreateTime = DateTime.Now;
+                        entity.ModifiedTime = DateTime.Now;
                     }
-                    entity.CreateTime = DateTime.Now;
-                    entity.ModifiedTime = DateTime.Now;
-                });
+                    //修改操作
+                    else if (item.State == EntityState.Modified)
+                    {
+                        entity.ModifiedTime = DateTime.Now;
+                    }
+                }
 
-            //修改操作
-            ChangeTracker.Entries().Where(e => e.State == EntityState.Modified && e.Entity is EntityBase).ToList()
-                .ForEach(e => ((EntityBase)e.Entity).ModifiedTime = DateTime.Now);
+            }           
         }
         public DbSet<User> User { get; set; }
     }
