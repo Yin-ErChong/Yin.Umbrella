@@ -16,6 +16,19 @@ namespace Yin.Umbrella.CodeGenerator
         {
             InitializeComponent();
         }
-
+        void EntityCheckCheckedChanged(object sender, EventArgs e)
+        {
+            if (EntityCheck.Checked)
+            {
+                Template.AppendText(DTOCheck.Text + "\n");
+            }
+        }
+        void DTOCheckCheckedChanged(object sender, EventArgs e)
+        {
+            if (DTOCheck.Checked)
+            {
+                Template.AppendText(DTOCheck.Text + "\n");
+            }
+        }
     }
 }
