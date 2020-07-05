@@ -32,7 +32,7 @@ namespace Yin.Umbrella.CodeGenerator.Core
             //}, "entity");
             //return entity_result;
             return "";
-        }
+        }//https://github.com/toddams/RazorLight
     }
     public enum GeneratorEnum
     {
