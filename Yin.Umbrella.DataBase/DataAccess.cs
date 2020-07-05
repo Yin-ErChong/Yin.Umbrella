@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SpiderDataBase.Entity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Yin.Umbrella.DataBase;
 
@@ -14,7 +18,41 @@ namespace Snai.Mysql.DataAccess.Base
         public DataAccess(DbContextOptions<DataAccess> options)
             : base(options)
         { }
+        public override EntityEntry Add(object entity)
+        {
+            return base.Add(entity);
+        }
+        public override int SaveChanges()
+        {
+            SetSystemField();
+            return base.SaveChanges();
+        }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            SetSystemField();
+            return  base.SaveChangesAsync();
+        }
+        /// <summary>
+        /// 系统字段赋值
+        /// </summary>
+        private void SetSystemField()
+        {
+            //添加操作
+            ChangeTracker.Entries().Where(e => e.State == EntityState.Added && e.Entity is EntityBase).ToList()
+                .ForEach(e => {
+                    var entity = (EntityBase)e.Entity;
+                    if (entity.Id==Guid.Empty)
+                    {
+                        entity.Id = Guid.NewGuid();
+                    }
+                    entity.CreateTime = DateTime.Now;
+                    entity.ModifiedTime = DateTime.Now;
+                });
 
+            //修改操作
+            ChangeTracker.Entries().Where(e => e.State == EntityState.Modified && e.Entity is EntityBase).ToList()
+                .ForEach(e => ((EntityBase)e.Entity).ModifiedTime = DateTime.Now);
+        }
         public DbSet<User> User { get; set; }
     }
     public static class DbSetExtension

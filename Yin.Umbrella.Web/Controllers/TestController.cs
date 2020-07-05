@@ -21,11 +21,17 @@ namespace Yin.Umbrella.Web.Controllers
         {
             _firstTestService = firstTestService;
         }
-        [Route(nameof(hehe))]
+        [Route(nameof(GetUser))]
         [HttpGet]
-        public async Task<ReturnT<User>> hehe(Guid guid)
+        public async Task<ReturnT<User>> GetUser(Guid guid)
         {
             return await _firstTestService.GetUser(guid);
+        }
+        [Route(nameof(AddUser))]
+        [HttpGet]
+        public async Task<ReturnT<User>> AddUser()
+        {
+            return await _firstTestService.AddUser();
         }
     }
 }

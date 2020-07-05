@@ -14,43 +14,9 @@ namespace Yin.Umbrella.DataBase
         [Column("id")]
         public Guid Id { get; set; }
         [Column("createtime")]
-        public DateTime CreateTime
-        {
-            get
-            {
-                if (_CreateTime == DateTime.MinValue)
-                {
-                    return DateTime.Now;
-                }
-                else
-                {
-                    return _CreateTime;
-                }
-            }
-            set 
-            { 
-                _CreateTime = value; 
-            }
-        }
+        public DateTime CreateTime{get; set;}
         [Column("modifiedtime")]
-        public DateTime ModifiedTime
-        {
-            get
-            {
-                if (_ModifiedTime == DateTime.MinValue)
-                {
-                    return DateTime.Now;
-                }
-                else
-                {
-                    return _ModifiedTime;
-                }
-            }
-            set
-            {
-                _ModifiedTime = value;
-            }
-        }
+        public DateTime ModifiedTime{ get; set; }
         #endregion
 
         #region 公共方法

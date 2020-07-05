@@ -10,6 +10,7 @@ namespace SpiderCore.ServiceInterFace
     public interface IFirstTestService
     {
          Task<ReturnT<User>> GetUser(Guid id);
+        Task<ReturnT<User>> AddUser();
 
     }
 }

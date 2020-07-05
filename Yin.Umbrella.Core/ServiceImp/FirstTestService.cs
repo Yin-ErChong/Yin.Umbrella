@@ -22,15 +22,25 @@ namespace SpiderCore.ServiceImp
         {
             try
             {
+                var userDB = await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();//await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();
+                _dataAccess.User.Update(userDB);
+                await _dataAccess.SaveChangesAsync();
+                return ReturnT<User>.Instance.Success(userDB);
+            }
+            catch (Exception ee)
+            {
+                return ReturnT<User>.Instance.Error();
+            }
+        }
+        public async Task<ReturnT<User>> AddUser()
+        {
+            try
+            {
                 User user = new User();
                 user.SetDefault();
                 _dataAccess.User.Add(user);
                 await _dataAccess.SaveChangesAsync();
                 return ReturnT<User>.Instance.Success(user);
-                //var userDB = await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();//await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();
-                //_dataAccess.User.Update(userDB);
-                //await _dataAccess.SaveChangesAsync();
-                //return ReturnT<User>.Instance.Success(userDB);
             }
             catch (Exception ee)
             {
