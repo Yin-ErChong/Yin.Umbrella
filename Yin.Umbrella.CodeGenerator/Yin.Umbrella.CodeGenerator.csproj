@@ -11,8 +11,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RazorEngine" Version="3.10.0" />
+    <PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
     <PackageReference Include="sqlSugarCore" Version="5.0.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Template\DTO类Razor.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\实体类razor.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\控制器razor.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

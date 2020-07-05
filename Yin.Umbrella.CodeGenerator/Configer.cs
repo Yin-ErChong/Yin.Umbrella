@@ -11,8 +11,8 @@ namespace Yin.Umbrella.CodeGenerator
         {
             string file = System.Windows.Forms.Application.ExecutablePath;
             Configuration config = ConfigurationManager.OpenExeConfiguration(file);
-            string connectionString =
-                config.ConnectionStrings.ConnectionStrings[connectionName].ConnectionString.ToString();
+            string connectionString = "server=localhost;port=3306;database=mybatis_test;uid=root;pwd=yin936162557;CharSet=utf8";
+                //config.ConnectionStrings.ConnectionStrings[connectionName].ConnectionString.ToString();
             return connectionString;
         }
     }
