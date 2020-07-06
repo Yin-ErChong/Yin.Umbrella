@@ -23,15 +23,12 @@ namespace Yin.Umbrella.CodeGenerator.Core
                  where table_name = '{0}'", _tableName)).ToList();
             return columsInfo;
         }
+        public void SetTemplate(string temp)
+        {
+            _templateText = temp;
+        }
         public virtual string GetCode()
         {
-            //var engine = new RazorLightEngineBuilder().
-            ////.UseFilesystemProject(@"D:\Test\CoreTest\ConsoleApp.RazorConsole")
-            ////.UseMemoryCachingProvider()
-            ////.Build();
-            //engine.CreateStrByRazorString();
-            //string result = engine.CompileRenderAsync("Ocean.cshtml",
-            //    new { Name = "Ocean" }).Result;
             var entity_result = Razor.Parse(_templateText, new
             {
                 EntityNameSpace = "Ace.Entity.CMS",
@@ -39,7 +36,6 @@ namespace Yin.Umbrella.CodeGenerator.Core
                 Columns = _columsInfos
             }, "entity");
             return entity_result;
-            //return "";
         }//https://github.com/toddams/RazorLight
     }
     public enum GeneratorEnum

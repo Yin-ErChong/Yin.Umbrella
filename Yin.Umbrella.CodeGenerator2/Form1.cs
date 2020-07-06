@@ -37,8 +37,10 @@ namespace Yin.Umbrella.CodeGenerator2
         private void Generate_Click(object sender, EventArgs e)
         {
             string _tableNmae = TableName.Text;
+            string temp = Template.Text;
             GeneratorBase generator = GeneratorFactory.GetGeneratorByName(GeneratorEnum.EntityGenerator);
             generator.SetTableName(_tableNmae);
+            generator.SetTemplate(temp);
             Code.Text = generator.GetCode();
         }
     }
