@@ -25,12 +25,6 @@ namespace Yin.Umbrella.CodeGenerator.Core
             base.SetTableName(tableName);
             _columsInfos = GetColumnInfos();
         }
-        private List<ColumnInfo> GetColumnInfos()
-        {
-            var columsInfo = DbService.db.SqlQueryable<ColumnInfo>(string.Format(@"select table_name,column_name,ordinal_position,is_nullable,data_type,character_maximum_length,column_key,column_comment
-                  from information_schema.COLUMNS
-                 where table_name = '{0}'",  _tableName)).ToList();
-            return columsInfo;
-        }
+
     }
 }

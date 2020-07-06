@@ -1,4 +1,5 @@
-﻿using RazorLight;
+﻿using CMS.Tool.WebApi.Models.Base;
+using RazorLight;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,8 +16,32 @@ namespace Yin.Umbrella.CodeGenerator.Core
         {
             _tableName = tableName;
         }
+        public List<ColumnInfo> GetColumnInfos()
+        {
+            var columsInfo = DbService.db.SqlQueryable<ColumnInfo>(string.Format(@"select table_name,column_name,ordinal_position,is_nullable,data_type,character_maximum_length,column_key,column_comment
+                  from information_schema.COLUMNS
+                 where table_name = '{0}'", _tableName)).ToList();
+            return columsInfo;
+        }
         public virtual string GetCode()
         {
+
+            var engine = new RazorLightEngineBuilder()
+                        .UseEmbeddedResourcesProject(typeof(Program))
+                         .UseMemoryCachingProvider()
+                         .Build();
+            var model = new { Name = "John Doe" };
+            string template = "Hello, @Model.Name. Welcome to RazorLight repository";
+            var result2 = engine.CompileRenderStringAsync("templateKey", template, model);
+            string str = result2.Result;
+            //string template = "Hello, @Model.Name. Welcome to RazorLight repository";
+            var result = engine.CompileRenderStringAsync("templateKey", _templateText, new
+            {
+                EntityNameSpace = "Ace.Entity.CMS",
+                EntityName = _tableName,
+                Columns = _columsInfos
+            });
+            return result.Result;
             //var engine = new RazorLightEngineBuilder().
             ////.UseFilesystemProject(@"D:\Test\CoreTest\ConsoleApp.RazorConsole")
             ////.UseMemoryCachingProvider()
@@ -26,12 +51,12 @@ namespace Yin.Umbrella.CodeGenerator.Core
             //    new { Name = "Ocean" }).Result;
             //var entity_result = Razor.Parse(_templateText, new
             //{
-            //    EntityNameSpace = "Ace.Entity.CMS",
+            //EntityNameSpace = "Ace.Entity.CMS",
             //    EntityName = _tableName,
             //    Columns = _columsInfos
             //}, "entity");
             //return entity_result;
-            return "";
+            //return "";
         }//https://github.com/toddams/RazorLight
     }
     public enum GeneratorEnum
