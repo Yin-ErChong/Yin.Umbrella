@@ -1,4 +1,5 @@
 ﻿using CMS.Tool.WebApi.Models.Base;
+using RazorEngine;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,14 +32,14 @@ namespace Yin.Umbrella.CodeGenerator.Core
             //engine.CreateStrByRazorString();
             //string result = engine.CompileRenderAsync("Ocean.cshtml",
             //    new { Name = "Ocean" }).Result;
-            //var entity_result = Razor.Parse(_templateText, new
-            //{
-            //EntityNameSpace = "Ace.Entity.CMS",
-            //    EntityName = _tableName,
-            //    Columns = _columsInfos
-            //}, "entity");
-            //return entity_result;
-            return "";
+            var entity_result = Razor.Parse(_templateText, new
+            {
+                EntityNameSpace = "Ace.Entity.CMS",
+                EntityName = _tableName,
+                Columns = _columsInfos
+            }, "entity");
+            return entity_result;
+            //return "";
         }//https://github.com/toddams/RazorLight
     }
     public enum GeneratorEnum
