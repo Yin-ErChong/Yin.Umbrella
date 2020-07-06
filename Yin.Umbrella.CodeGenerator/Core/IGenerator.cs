@@ -6,6 +6,6 @@ namespace Yin.Umbrella.CodeGenerator.Core
 {
     public interface IGenerator
     {
-        public string GetCode();
+         string GetCode();
     }
 }

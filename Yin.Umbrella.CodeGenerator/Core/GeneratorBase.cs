@@ -1,5 +1,5 @@
 ﻿using CMS.Tool.WebApi.Models.Base;
-using RazorLight;
+using RazorEngine;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,40 +23,19 @@ namespace Yin.Umbrella.CodeGenerator.Core
                  where table_name = '{0}'", _tableName)).ToList();
             return columsInfo;
         }
+        public void SetTemplate(string temp)
+        {
+            _templateText = temp;
+        }
         public virtual string GetCode()
         {
-
-            var engine = new RazorLightEngineBuilder()
-                        .UseEmbeddedResourcesProject(typeof(Program))
-                         .UseMemoryCachingProvider()
-                         .Build();
-            var model = new { Name = "John Doe" };
-            string template = "Hello, @Model.Name. Welcome to RazorLight repository";
-            var result2 = engine.CompileRenderStringAsync("templateKey", template, model);
-            string str = result2.Result;
-            //string template = "Hello, @Model.Name. Welcome to RazorLight repository";
-            var result = engine.CompileRenderStringAsync("templateKey", _templateText, new
+            var entity_result = Razor.Parse(_templateText, new
             {
                 EntityNameSpace = "Ace.Entity.CMS",
                 EntityName = _tableName,
                 Columns = _columsInfos
-            });
-            return result.Result;
-            //var engine = new RazorLightEngineBuilder().
-            ////.UseFilesystemProject(@"D:\Test\CoreTest\ConsoleApp.RazorConsole")
-            ////.UseMemoryCachingProvider()
-            ////.Build();
-            //engine.CreateStrByRazorString();
-            //string result = engine.CompileRenderAsync("Ocean.cshtml",
-            //    new { Name = "Ocean" }).Result;
-            //var entity_result = Razor.Parse(_templateText, new
-            //{
-            //EntityNameSpace = "Ace.Entity.CMS",
-            //    EntityName = _tableName,
-            //    Columns = _columsInfos
-            //}, "entity");
-            //return entity_result;
-            //return "";
+            }, "entity");
+            return entity_result;
         }//https://github.com/toddams/RazorLight
     }
     public enum GeneratorEnum

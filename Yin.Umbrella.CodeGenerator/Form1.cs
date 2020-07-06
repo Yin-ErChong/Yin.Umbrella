@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yin.Umbrella.CodeGenerator.Core;
 
-namespace Yin.Umbrella.CodeGenerator
+namespace Yin.Umbrella.CodeGenerator2
 {
     public partial class Form1 : Form
     {
-        
         public Form1()
         {
             InitializeComponent();
@@ -31,15 +30,17 @@ namespace Yin.Umbrella.CodeGenerator
             if (DTOCheck.Checked)
             {
                 //Template.Text = GetGeneratorByName();
-               // Template.AppendText(DTOCheck.Text + "\n");
+                // Template.AppendText(DTOCheck.Text + "\n");
             }
         }
 
         private void Generate_Click(object sender, EventArgs e)
         {
-            string _tableNmae=tableName.Text;
+            string _tableNmae = TableName.Text;
+            string temp = Template.Text;
             GeneratorBase generator = GeneratorFactory.GetGeneratorByName(GeneratorEnum.EntityGenerator);
             generator.SetTableName(_tableNmae);
+            generator.SetTemplate(temp);
             Code.Text = generator.GetCode();
         }
     }
