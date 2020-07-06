@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using static Yin.Umbrella.CodeGenerator.Models.DBModel;
 
 namespace Yin.Umbrella.CodeGenerator.Core
 {
