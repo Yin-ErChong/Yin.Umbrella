@@ -6,23 +6,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yin.Umbrella.DTO;
-
+using Microsoft.AspNetCore.Http;
 namespace Yin.Umbrella.Web.Controllers
 {
     /// <summary>
     /// 测试控制器
     /// </summary>
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TestController : Controller
+    public class TestController : BaseController
     {
         private IFirstTestService _firstTestService;
-        public TestController(IFirstTestService firstTestService)
+        //上下文
+        private IHttpContextAccessor _accessor;
+        public TestController(IFirstTestService firstTestService, IHttpContextAccessor accessor)
         {
             _firstTestService = firstTestService;
+            _accessor = accessor;
         }
         [Route(nameof(GetUser))]
-        [HttpGet]
+        [HttpPost]
         public async Task<ReturnT<User>> GetUser(Guid guid)
         {
             return await _firstTestService.GetUser(guid);

@@ -18,6 +18,7 @@ using Snai.Mysql.DataAccess.Base;
 using SpiderCore.ServiceImp;
 using SpiderCore.ServiceInterFace;
 using SpiderUtil;
+using Microsoft.AspNetCore.Http;
 
 namespace Yin.Umbrella.Web
 {
@@ -34,7 +35,9 @@ namespace Yin.Umbrella.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             EFConfig(services);
+
             LogConfig();
             //SwaggerÅäÖÃ
             services.AddSwaggerGen(c =>
