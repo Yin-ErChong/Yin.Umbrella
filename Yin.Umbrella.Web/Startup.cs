@@ -84,6 +84,7 @@ namespace Yin.Umbrella.Web
             });
 
         }
+
         #region ×é¼şÅäÖÃ
         public void EFConfig(IServiceCollection services)
         {
