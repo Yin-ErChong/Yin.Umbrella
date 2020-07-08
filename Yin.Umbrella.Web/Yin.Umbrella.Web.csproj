@@ -19,6 +19,10 @@
     <ProjectReference Include="..\Yin.Umbrella.Util\Yin.Umbrella.Util.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\html\htmlpage.html" />
+  </ItemGroup>
+
 
 
 </Project>

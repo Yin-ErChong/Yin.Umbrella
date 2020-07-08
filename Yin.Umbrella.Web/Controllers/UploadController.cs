@@ -28,12 +28,11 @@ namespace Yin.Umbrella.Web.Controllers
         }
         [Route(nameof(Upload))]
         [HttpPost]
-        public string Upload(IFormCollection Files)
+        public string Upload()
         {
             try
             {
                 //var form = Request.Form;//直接从表单里面获取文件名不需要参数
-                var form = Files;//定义接收类型的参数
                 IFormFileCollection cols = Request.Form.Files;
                 if (cols == null || cols.Count == 0)
                 {
