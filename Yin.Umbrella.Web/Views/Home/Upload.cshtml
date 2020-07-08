@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <form id="form0">
+        <input type="file" name="file" />
+        <input type="button" value="上传本地" onclick="upload()" />
+    </form>
+</body>
+</html>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/jquery.form.js"></script>
+<script>
+    function upload() {
+        var formData = new FormData($("#form0")[0]);
+        $.ajax({
+            url: "Test/Upload",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            type: 'post',
+            success: function (d) {
+                console.log(d);
+            }
+        })
+    }
+
+</script>

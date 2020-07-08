@@ -7,6 +7,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Yin.Umbrella.DTO;
 using Microsoft.AspNetCore.Http;
+using System.Collections;
+using Newtonsoft.Json;
+using System.IO;
+
 namespace Yin.Umbrella.Web.Controllers
 {
     /// <summary>
@@ -33,6 +37,6 @@ namespace Yin.Umbrella.Web.Controllers
         public async Task<ReturnT<User>> AddUser()
         {
             return await _firstTestService.AddUser();
-        }
+        }       
     }
 }
