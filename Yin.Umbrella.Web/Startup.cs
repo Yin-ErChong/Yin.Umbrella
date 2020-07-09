@@ -19,6 +19,8 @@ using SpiderCore.ServiceImp;
 using SpiderCore.ServiceInterFace;
 using SpiderUtil;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Yin.Umbrella.Web
 {
@@ -86,9 +88,12 @@ namespace Yin.Umbrella.Web
         }
 
         #region ×é¼þÅäÖÃ
+        public static readonly LoggerFactory MyLoggerFactory = new LoggerFactory(new[] {
+            new DebugLoggerProvider()
+        });
         public void EFConfig(IServiceCollection services)
         {
-            services.AddDbContext<DataAccess>(options => options.UseMySql(Configuration.GetConnectionString("Connection")));
+            services.AddDbContext<DataAccess>(options => options.UseLoggerFactory(MyLoggerFactory).UseMySql(Configuration.GetConnectionString("Connection")));
             services.AddScoped<IFirstTestService, FirstTestService>();
         }
         /// <summary>

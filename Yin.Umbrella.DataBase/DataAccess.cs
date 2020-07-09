@@ -10,11 +10,14 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Yin.Umbrella.DataBase;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Snai.Mysql.DataAccess.Base
 {
     public class DataAccess : DbContext
     {
+
         public DataAccess(DbContextOptions<DataAccess> options)
             : base(options)
         { }

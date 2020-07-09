@@ -25,6 +25,7 @@ namespace SpiderCore.ServiceImp
                 var userDB = await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();//await _dataAccess.User.Where(n => n.Id == id).FirstOrDefaultAsync();
                 _dataAccess.User.Update(userDB);
                 await _dataAccess.SaveChangesAsync();
+                //_dataAccess.Database.Log=
                 return ReturnT<User>.Instance.Success(userDB);
             }
             catch (Exception ee)
