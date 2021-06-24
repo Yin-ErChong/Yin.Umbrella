@@ -46,6 +46,13 @@ namespace Yin.Umbrella.DTO
             returnBase.Message = errorEnum.ToString();
             return returnBase;
         }
+        public static ReturnT<T> Error<T>(this ReturnT<T> returnT, ErrorEnum errorEnum, string msg)
+        {
+            returnT.Code = (int)ErrorEnum.未知错误;
+            returnT.IsSuccess = false;
+            returnT.Message = msg;
+            return returnT;
+        }
         public static ReturnBase Error(this ReturnBase returnBase)
         {
             returnBase.Code = (int)ErrorEnum.未知错误;

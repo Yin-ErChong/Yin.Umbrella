@@ -47,9 +47,9 @@ namespace Yin.Umbrella.Util.HttpRequestHelper
         /// </summary>
         public string Url { get; set; }
         /// <summary>
-        /// Cookie
+        /// History
         /// </summary>
-        public string Cookie { get; set; }
+        public string History { get; set; }
         /// <summary>
         /// 头信息
         /// </summary>

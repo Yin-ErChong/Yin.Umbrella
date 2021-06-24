@@ -65,6 +65,10 @@ namespace Snai.Mysql.DataAccess.Base
             }           
         }
         public DbSet<User> User { get; set; }
+        public DbSet<Book> Book { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+        public DbSet<BookType> BookType { get; set; }
+        public DbSet<History> History { get; set; }
     }
     public static class DbSetExtension
     {
