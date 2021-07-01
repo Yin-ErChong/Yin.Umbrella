@@ -19,6 +19,7 @@ namespace SpiderCore.ServiceImp
         {
             _dataAccess = dataAccess;
         }
+        #region User
         public async Task<ReturnT<User>> GetUser(Guid id)
         {
             try
@@ -125,11 +126,9 @@ namespace SpiderCore.ServiceImp
                 return ReturnT<User>.Instance.Error();
             }
         }
+        #endregion
 
-
-
-
-
+        #region 图书信息
         public async Task<ReturnT<Book>> GetBook(Guid id)
         {
             try
@@ -199,12 +198,9 @@ namespace SpiderCore.ServiceImp
                 return ReturnT<Book>.Instance.Error();
             }
         }
+        #endregion
 
-
-
-
-
-
+        #region 用户信息
         public async Task<ReturnT<Admin>> GetAdmin(Guid id)
         {
             try
@@ -278,11 +274,9 @@ namespace SpiderCore.ServiceImp
                 return ReturnT<Admin>.Instance.Error();
             }
         }
+        #endregion
 
-
-
-
-
+        #region 图书类型
         public async Task<ReturnT<BookType>> GetBookType(Guid guid)
         {
             try
@@ -342,11 +336,9 @@ namespace SpiderCore.ServiceImp
                 return ReturnT<BookType>.Instance.Error();
             }
         }
+        #endregion
 
-
-
-
-
+        #region 历史记录
         public async Task<ReturnT<History>> GetHistory(Guid guid)
         {
             try
@@ -361,29 +353,90 @@ namespace SpiderCore.ServiceImp
                 return ReturnT<History>.Instance.Error();
             }
         }
-        public async Task<ReturnT<History>> AddHistory(History cookie)
+        public async Task<ReturnT<History>> AddHistory(History history)
         {
             try
             {
-                History cookie1 = new History();
-                cookie1.Id = cookie.Id;
-                cookie1.AId = cookie.AId;
-                cookie1.BId = cookie.BId;
-                cookie1.Card = cookie.Card;
-                cookie1.BookName = cookie.BookName;
-                cookie1.AdminName = cookie.AdminName; 
-                cookie1.UserName = cookie.UserName;
-                cookie1.BeginTime = cookie.BeginTime;
-                cookie1.Endtime = cookie.Endtime;
-                cookie1.Status = cookie.Status;
-                _dataAccess.History.Add(cookie1);
+                History history1 = new History();
+                history1.Id = history.Id;
+                history1.AId = history.AId;
+                history1.BId = history.BId;
+                history1.Card = history.Card;
+                history1.BookName = history.BookName;
+                history1.AdminName = history.AdminName;
+                history1.UserName = history.UserName;
+                history1.BeginTime = history.BeginTime;
+                history1.Endtime = history.Endtime;
+                history1.Status = history.Status;
+                _dataAccess.History.Add(history1);
                 await _dataAccess.SaveChangesAsync();
-                return ReturnT<History>.Instance.Success(cookie1);
+                return ReturnT<History>.Instance.Success(history1);
             }
             catch (Exception ee)
             {
                 return ReturnT<History>.Instance.Error();
             }
         }
+        #endregion
+
+        #region 借书
+        public async Task<ReturnT<History>> BorrowBook(History history)
+        {
+            try
+            {
+                History history1 = new History();
+                Book book1 = _dataAccess.Book.Where(n => n.Id == Guid.Parse("3fa85f64-1234-4562-b3fc-2c963f66afa6")).FirstOrDefault();
+                Admin admin1 = _dataAccess.Admin.Where(n => n.Id == Guid.Parse("1fa85f64-1234-4562-b3fc-2c963f66afa6")).FirstOrDefault();
+                history1.Id = history.Id;
+                history1.AId = admin1.Id.ToString() ;
+                history1.BId = book1.Id.ToString();
+                history1.Card = book1.Card;
+                history1.BookName = book1.Name;
+                history1.AdminName = admin1.UserName;
+                history1.UserName = admin1.Name;
+                history1.BeginTime = DateTime.Now.ToString();
+                history1.Status = history.Status;
+                _dataAccess.History.Add(history1);
+                await _dataAccess.SaveChangesAsync();
+                return ReturnT<History>.Instance.Success(history1);
+            }
+            catch (Exception ee)
+            {
+                return ReturnT<History>.Instance.Error();
+            }
+        }
+        #endregion
+
+        #region 还书
+        public async Task<ReturnT<History>> ReturnBook(History history)
+        {
+            try
+            {
+                History history1 = new History();
+                History history2 = _dataAccess.History.Where(n => n.AId == "3fa85f64-1234-4562-b3fc-2c963f66afa6").FirstOrDefault();
+                history1.Id = history.Id;
+                history1.AId = history2.AId;
+                history1.BId = history2.BId;
+                history1.Card = history2.Card;
+                history1.BookName = history2.BookName;
+                history1.AdminName = history2.AdminName;
+                history1.UserName = history2.UserName;
+                history1.BeginTime = history2.BeginTime;
+                history1.Endtime = DateTime.Now.ToString();
+                history1.Status = 10;
+                _dataAccess.History.Add(history1);
+                await _dataAccess.SaveChangesAsync();
+                return ReturnT<History>.Instance.Success(history1);
+            }
+            catch (Exception ee)
+            {
+                return ReturnT<History>.Instance.Error();
+            }
+        }
+        #endregion
+
+
+
+
     }
 }

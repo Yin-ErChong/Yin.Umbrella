@@ -23,6 +23,10 @@
     <None Include="wwwroot\html\htmlpage.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NPOI\" />
+  </ItemGroup>
+
   
   
 </Project>

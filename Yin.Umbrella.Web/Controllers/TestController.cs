@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Yin.Umbrella.DTO;
 using Microsoft.AspNetCore.Http;
 using Yin.Umbrella.DTO.ApiDTO;
+using System.IO;
 
 namespace Yin.Umbrella.Web.Controllers
 {
@@ -24,6 +25,8 @@ namespace Yin.Umbrella.Web.Controllers
             _firstTestService = firstTestService;
             _accessor = accessor;
         }
+
+        #region User
         [Route(nameof(GetUser))]
         [HttpPost]
         public async Task<ReturnT<User>> GetUser(Guid guid)
@@ -60,10 +63,9 @@ namespace Yin.Umbrella.Web.Controllers
         {
             return await _firstTestService.UpdateUser(user);
         }
+        #endregion
 
-
-
-
+        #region 图书信息
         [Route(nameof(GetBook))]
         [HttpGet]
         public async Task<ReturnT<Book>> GetBook(Guid guid)
@@ -88,10 +90,9 @@ namespace Yin.Umbrella.Web.Controllers
         {
             return await _firstTestService.RemoveBook();
         }
+        #endregion
 
-
-
-
+        #region 用户信息
         [Route(nameof(GetAdmin))]
         [HttpGet]
         public async Task<ReturnT<Admin>> GetAdmin(Guid guid)
@@ -116,11 +117,9 @@ namespace Yin.Umbrella.Web.Controllers
         {
             return await _firstTestService.RemoveAdmin();
         }
+        #endregion
 
-
-
-
-
+        #region 图书类型
         [Route(nameof(GetBookType))]
         [HttpGet]
         public async Task<ReturnT<BookType>> GetBookType(Guid guid)
@@ -145,10 +144,9 @@ namespace Yin.Umbrella.Web.Controllers
         {
             return await _firstTestService.RemoveBookType();
         }
+        #endregion
 
-
-
-
+        #region 历史记录
 
         [Route(nameof(GetHistory))]
         [HttpGet]
@@ -158,9 +156,39 @@ namespace Yin.Umbrella.Web.Controllers
         }
         [Route(nameof(AddHistory))]
         [HttpPost]
-        public async Task<ReturnT<History>> AddHistory(History cookie)
+        public async Task<ReturnT<History>> AddHistory(History history)
         {
-            return await _firstTestService.AddHistory(cookie);
+            return await _firstTestService.AddHistory(history);
         }
+        #endregion
+
+        #region 借书
+        [Route(nameof(BorrowBook))]
+        [HttpPost]
+        public async Task<ReturnT<History>> BorrowBook(History history)
+        {
+            return await _firstTestService.BorrowBook(history);
+        }
+        #endregion
+
+        #region 还书
+        [Route(nameof(ReturnBook))]
+        [HttpPost]
+        public async Task<ReturnT<History>> ReturnBook(History history)
+        {
+            return await _firstTestService.ReturnBook(history);
+        }
+        #endregion
+
+        [Route(nameof(NPDataTableToExcel))]
+        [HttpPost]
+        
+
+
+
+
+
+
+
     }
 }
