@@ -9,6 +9,11 @@ using Yin.Umbrella.DTO;
 using Microsoft.AspNetCore.Http;
 using Yin.Umbrella.DTO.ApiDTO;
 using System.IO;
+using System.Data;
+using Yin.Umbrella.Util.TableAndExcel;
+using Yin.Umbrella.Util.NPDataTableToExcel;
+using NPOI.SS.UserModel;
+using Yin.Umbrella.DataBase.Entity;
 
 namespace Yin.Umbrella.Web.Controllers
 {
@@ -180,13 +185,29 @@ namespace Yin.Umbrella.Web.Controllers
         }
         #endregion
 
-        [Route(nameof(NPDataTableToExcel))]
+        //[Route(nameof(ReadExcelData))]
+        //[HttpPost]
+        //public void ReadExcelData()
+        //{
+        //    DataTable dataTable = null;
+        //    string filePath = @"C:\Users\Administrator\Desktop\1.xlsx";
+        //    dataTable = ExcelToTable.ExcelToDataTable(filePath, true);
+        //}
+
+
+        [Route(nameof(ExcelGetTable))]
         [HttpPost]
-        
+        public async Task<ReturnT<NewExcel>> ExcelGetTable(NewExcel newExcel)
+        {
+            return await _firstTestService.ExcelGetTable(newExcel);
+        }
 
-
-
-
+        [Route(nameof(TableGetExcel))]
+        [HttpPost]
+        public async Task<ReturnBase> TableGetExcel(Book book)
+        {
+            return await _firstTestService.TableGetExcel(book);
+        }
 
 
 

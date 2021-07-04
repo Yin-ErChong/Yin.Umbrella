@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Yin.Umbrella.DataBase;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
+using Yin.Umbrella.DataBase.Entity;
 
 namespace Snai.Mysql.DataAccess.Base
 {
@@ -69,6 +70,7 @@ namespace Snai.Mysql.DataAccess.Base
         public DbSet<Admin> Admin { get; set; }
         public DbSet<BookType> BookType { get; set; }
         public DbSet<History> History { get; set; }
+        public DbSet<NewExcel> NewExcel { get; set; }
     }
     public static class DbSetExtension
     {

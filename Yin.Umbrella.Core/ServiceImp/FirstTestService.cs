@@ -4,11 +4,15 @@ using SpiderCore.ServiceInterFace;
 using SpiderDataBase.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yin.Umbrella.DataBase.Entity;
 using Yin.Umbrella.DTO;
 using Yin.Umbrella.DTO.ApiDTO;
+using Yin.Umbrella.Util.NPDataTableToExcel;
+using Yin.Umbrella.Util.TableAndExcel;
 
 namespace SpiderCore.ServiceImp
 {
@@ -148,7 +152,7 @@ namespace SpiderCore.ServiceImp
             try
             {
                 Book book1 = new Book();
-                book1.Id = book.Id;
+                book1.Id = Guid.NewGuid();
                 book1.Name = book.Name;
                 book1.Card = book.Card;
                 book1.Autho = book.Autho;
@@ -220,7 +224,7 @@ namespace SpiderCore.ServiceImp
             try
             {
                 Admin admin1 = new Admin();
-                admin1.Id = admin.Id;
+                admin1.Id = Guid.NewGuid();
                 admin1.UserName = admin.UserName;
                 admin1.Name = admin.Name;
                 admin1.Password = admin.Password;
@@ -296,7 +300,7 @@ namespace SpiderCore.ServiceImp
             try
             {
                 BookType bookType1 = new BookType();
-                bookType1.Id = bookType.Id;
+                bookType1.Id = Guid.NewGuid();
                 bookType1.Name = bookType.Name;
                 _dataAccess.BookType.Add(bookType1);
                 await _dataAccess.SaveChangesAsync();
@@ -358,7 +362,7 @@ namespace SpiderCore.ServiceImp
             try
             {
                 History history1 = new History();
-                history1.Id = history.Id;
+                history1.Id = Guid.NewGuid();
                 history1.AId = history.AId;
                 history1.BId = history.BId;
                 history1.Card = history.Card;
@@ -387,7 +391,7 @@ namespace SpiderCore.ServiceImp
                 History history1 = new History();
                 Book book1 = _dataAccess.Book.Where(n => n.Id == Guid.Parse("3fa85f64-1234-4562-b3fc-2c963f66afa6")).FirstOrDefault();
                 Admin admin1 = _dataAccess.Admin.Where(n => n.Id == Guid.Parse("1fa85f64-1234-4562-b3fc-2c963f66afa6")).FirstOrDefault();
-                history1.Id = history.Id;
+                history1.Id = Guid.NewGuid();
                 history1.AId = admin1.Id.ToString() ;
                 history1.BId = book1.Id.ToString();
                 history1.Card = book1.Card;
@@ -414,7 +418,7 @@ namespace SpiderCore.ServiceImp
             {
                 History history1 = new History();
                 History history2 = _dataAccess.History.Where(n => n.AId == "3fa85f64-1234-4562-b3fc-2c963f66afa6").FirstOrDefault();
-                history1.Id = history.Id;
+                history1.Id = Guid.NewGuid();
                 history1.AId = history2.AId;
                 history1.BId = history2.BId;
                 history1.Card = history2.Card;
@@ -435,8 +439,70 @@ namespace SpiderCore.ServiceImp
         }
         #endregion
 
+        public async Task<ReturnT<NewExcel>> ExcelGetTable(NewExcel newExcel)
+        {
+            try
+            {
+                NewExcel newExcel1 = new NewExcel();
+                DataTable dataTable = null;
+                string filePath = @"C:\Users\Administrator\Desktop\1.xlsx";
+                dataTable = ExcelToTable.ExcelToDataTable(filePath, true);
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    newExcel1.Id = Guid.NewGuid();
+                    newExcel1.Name = dataTable.Rows[i].ItemArray[0].ToString();
+                    newExcel1.Gender = dataTable.Rows[i].ItemArray[1].ToString();
+                    newExcel1.Age = dataTable.Rows[i].ItemArray[2].ToString();
+                    _dataAccess.NewExcel.Add(newExcel1);
+                    await _dataAccess.SaveChangesAsync();
+                }
+                return ReturnT<NewExcel>.Instance.Success(newExcel1);
+            }
+            catch (Exception ee)
+            {
+                return ReturnT<NewExcel>.Instance.Error();
+            }
+        }
 
+        public async Task<ReturnBase> TableGetExcel(Book book)
+        {
+            try
+            {
+                List<Book> book1 = _dataAccess.Book.Where(n => 1==1).ToList();
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("id", typeof(Guid));
+                dataTable.Columns.Add("name", typeof(string));
+                dataTable.Columns.Add("card", typeof(string));
+                dataTable.Columns.Add("autho", typeof(string));
+                dataTable.Columns.Add("num", typeof(string));
+                dataTable.Columns.Add("press", typeof(string));
+                dataTable.Columns.Add("type", typeof(string));
 
+                for (int i = 0; i < book1.Count; i++)
+                {
+                    DataRow dataRow = dataTable.NewRow();
+                    dataRow["id"] = book1[i].Id;
+                    dataRow["name"] = book1[i].Name;
+                    dataRow["card"] = book1[i].Card;
+                    dataRow["autho"] = book1[i].Autho;
+                    dataRow["num"] = book1[i].Num;
+                    dataRow["press"] = book1[i].Press;
+                    dataRow["type"] = book1[i].Type;
+                    dataTable.Rows.Add(dataRow);
+                }
+                string s_FileName = DateTime.Now.ToString("yyyy-MM-dd");
+                TableToExcel.DataTableToExcel(dataTable, s_FileName);
+
+                //Book book2 = new Book();
+                //_dataAccess.Book.Update(book2);
+                //await _dataAccess.SaveChangesAsync();
+                return ReturnBase.Instance.Success();
+            }
+            catch (Exception ee)
+            {
+                return ReturnT<Book>.Instance.Error();
+            }
+        }
 
     }
 }

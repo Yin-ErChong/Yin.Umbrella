@@ -1,64 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Yin.Umbrella.Util.NPDataTableToExcel
 {
-    class TableToExcel
+    public class TableToExcel
     {
-        public static void NPDataTableToExcel(System.Data.DataTable data, string fileName, bool isColumnWritten)
+        public static void DataTableToExcel(System.Data.DataTable m_DataTable, string s_FileName)
         {
-            NPOI.SS.UserModel.IWorkbook workbook = null;
-            NPOI.SS.UserModel.ISheet sheet = null;
-            FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            if (fileName.IndexOf(".xlsx") > 0)
-                workbook = new NPOI.XSSF.UserModel.XSSFWorkbook();
-            else if (fileName.IndexOf(".xls") > 0)
-                workbook = new NPOI.HSSF.UserModel.HSSFWorkbook();
-            int rowIndex = 0;
-            try
+            string FileName = @"C:\Users\Administrator\Desktop\" + s_FileName + ".xls";
+            if (File.Exists(FileName))
             {
-                sheet = workbook.CreateSheet(data.TableName);
-                if (isColumnWritten == true)
+                File.Delete(FileName);
+            }
+            FileStream objFileStream;
+            StreamWriter objStreamWriter;
+            string strLine = "";
+            objFileStream = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.Write);
+            objStreamWriter = new StreamWriter(objFileStream, Encoding.Unicode);
+            for (int i = 0; i < m_DataTable.Columns.Count; i++)
+            {
+                strLine = strLine + m_DataTable.Columns[i].Caption.ToString() + Convert.ToChar(9);
+            }
+            objStreamWriter.WriteLine(strLine);
+            strLine = "";
+            for (int i = 0; i < m_DataTable.Rows.Count; i++)
+            {
+                for (int j = 0; j < m_DataTable.Columns.Count; j++)
                 {
-                    NPOI.SS.UserModel.IRow row = sheet.CreateRow(rowIndex);
-                    #region 
-                    row.HeightInPoints = 25;
-                    NPOI.SS.UserModel.ICellSTyle headStyle = workbook.CreateCellStyle();
-
-                    #endregion
-                    for (int j = 0; j < data.Rows.Count; ++j)
+                    if (m_DataTable.Rows[i].ItemArray[j] == null)
+                        strLine = strLine + " " + Convert.ToChar(9);
+                    else
                     {
-                        row.CreateCell(j).SetCellValue(data.Columns[j].ColumnName);
-                        row.GetCell(j).CellStyle = headStyle;
+                        string rowstr = "";
+                        rowstr = m_DataTable.Rows[i].ItemArray[j].ToString();
+                        if (rowstr.IndexOf("\r\n") > 0)
+                            rowstr = rowstr.Replace("\r\n", " ");
+                        if (rowstr.IndexOf("\t") > 0)
+                            rowstr = rowstr.Replace("\t", " ");
+                        strLine = strLine + rowstr + Convert.ToChar(9);
                     }
-                    rowIndex++;
                 }
-                for (int i = 0; i < data.Columns.Count; ++i)
-                {
-                    NPOI.SS.UserModel.IRow row = sheet.CreatrRow(rowIndex);
-                    for (int j = 0; j < data.Columns.Count; ++j)
-                    {
-                        string a = data.Rows[i][j].ToString();
-                        row.CreateCell(j).SetCellValue(data.Rows[i][j].ToString());
-                    }
-                    rowIndex++;
-                }
-                for (int cl = 0; cl < data.Rows.Count; cl++)
-                {
-                    sheet.SetColumnWidth(cl, 13 * 256);
-                }
-                workbook.write(fs);
+                objStreamWriter.WriteLine(strLine);
+                strLine = "";
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Close();
-            }
+            objStreamWriter.Close();
+            objFileStream.Close();
+            //return FileName;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Yin.Umbrella.DataBase.Entity;
 using Yin.Umbrella.DTO;
 using Yin.Umbrella.DTO.ApiDTO;
 
@@ -47,6 +48,9 @@ namespace SpiderCore.ServiceInterFace
 
         Task<ReturnT<History>> BorrowBook(History history);
         Task<ReturnT<History>> ReturnBook(History history);
+
+        Task<ReturnT<NewExcel>> ExcelGetTable(NewExcel newExcel);
+        Task<ReturnBase> TableGetExcel(Book book);
 
     }
 }
