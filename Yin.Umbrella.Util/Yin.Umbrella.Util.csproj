@@ -8,7 +8,9 @@
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
     <PackageReference Include="NPOI" Version="2.5.3" />
-    <PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+    <PackageReference Include="ServiceStack.Common" Version="4.0.62" />
+    <PackageReference Include="ServiceStack.Redis.Complete" Version="1.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
   </ItemGroup>
 
   <ItemGroup>

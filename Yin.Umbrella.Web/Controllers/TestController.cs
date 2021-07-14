@@ -14,6 +14,7 @@ using Yin.Umbrella.Util.TableAndExcel;
 using Yin.Umbrella.Util.NPDataTableToExcel;
 using NPOI.SS.UserModel;
 using Yin.Umbrella.DataBase.Entity;
+using Yin.Umbrella.Util.RedisHelper2;
 
 namespace Yin.Umbrella.Web.Controllers
 {
@@ -209,7 +210,15 @@ namespace Yin.Umbrella.Web.Controllers
             return await _firstTestService.TableGetExcel(book);
         }
 
-
+        [Route(nameof(RedioTest))]
+        [HttpGet]
+        public void RedioTest()
+        {
+            var s = "a";
+            new Redis().Set("abc", s, 10);
+            Console.WriteLine("ok");
+            Console.ReadKey();
+        }
 
     }
 }
